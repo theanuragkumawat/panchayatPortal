@@ -1,11 +1,10 @@
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
   }
   
   .navbar {
-    background-color: #d8641676;
+    background-color: #e7933ab9;
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -14,8 +13,8 @@ body {
   }
   
   .navbar .logo {
-    color: rgb(19, 17, 17);
-    font-size: 24px;
+    color: rgb(34, 32, 32);
+    font-size: 27px;
     font-weight: bold;
     text-decoration: none;
   }
@@ -28,23 +27,21 @@ body {
   }
   
   .navbar ul li {
-    margin-left: 35px;
+    margin-left: 20px;
   }
   
   .navbar ul li a {
-    color: rgb(25, 23, 23);
+    color: rgb(35, 33, 33);
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     transition: color 0.3s;
   }
   
   .navbar ul li a:hover {
     color: #c8e6c9;
-    
   }
-  /* nav bar ends/ */
 
-  /* problem status */
+  /* problem upload */
   .container {
     display: flex;
     justify-content: space-around;
@@ -73,7 +70,7 @@ body {
     font-weight: bold;
   }
   
-  input[type="text"], textarea, select, input[type="file"] {
+  input[type="text"], textarea, select {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
@@ -103,110 +100,74 @@ body {
   .problem-status li {
     margin-bottom: 10px;
     font-size: 16px;
-  } 
-
-  /* end */
+  }
+/* end   */
   
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 40px;
+  }
+  
+  .problem-upload, .problem-status {
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 45%;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  h2 {
+    color: #00796b;
+  }
+  
+  form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  input[type="text"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #00796b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005f56;
+  }
+  
+  .problem-status ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .problem-status li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
   .custom-click {
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    border-radius: 10px;
   }
   
   .custom-click:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  /* Same background color for both cards */
-  .custom-bg {
-    background-color: #0d6efd; /* Bootstrap primary blue */
-  }
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Body */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f6fa;
-    padding: 20px;
-  }
-  
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    color: #2f3640;
-  }
-  
-  /* Problems Container (now vertical) */
-  .problems-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  /* Problem Card */
-  .problem-card {
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  .problem-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .problem-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-  }
-  
-  .problem-card .content {
-    padding: 15px;
-  }
-  
-  .problem-card h3 {
-    margin-bottom: 10px;
-    font-size: 1.3rem;
-    color: #333;
-  }
-  
-  .problem-card p {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-  }
-  
-  .status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-  }
-  
-  .pending {
-    background-color: #ffeaa7;
-    color: #d63031;
-  }
-  
-  .completed {
-    background-color: #dfe6e9;
-    color: #00b894;
-
-  }
-  
+    
