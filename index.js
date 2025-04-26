@@ -1,10 +1,10 @@
-const e = require('express');
 const express = require('express');
 const router = express.Router();
+const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const app = express();
 
-app.use(status());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
