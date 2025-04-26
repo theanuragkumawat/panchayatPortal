@@ -7,6 +7,18 @@ const User = require('./models/user'); // Assuming a User model exists
 const { mongoConnect } = require('./connection');
 const problemSchema = require('./models/problem'); // Assuming a Problem model exists
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+const Product_Image_Path = './public/ProblemImages';
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    return cb(null, Product_Image_Path);
+  },
+  filename: function (req, file, cb) {
+    return cb(null, file.originalname);
+  }
+});
+const img = multer({ storage });
 
 const app = express();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with a secure key
@@ -43,7 +55,7 @@ app.get("/problemUpload", (req, res) => {
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
   console.log("hello")
-  try {   
+  try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
@@ -147,7 +159,13 @@ const api = "https://api.postalpincode.in/pincode/303702";
 
 // fetchPincodeData(api);
 
-app.post("/submit-problem", authenticateToken, async (req, res) => {
+app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
+
+  let paths = [];
+  req.files.forEach(file => {
+    paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
+  })
+
   const { title,
     description,
     urgency,
@@ -156,7 +174,8 @@ app.post("/submit-problem", authenticateToken, async (req, res) => {
     district,
     city,
     area,
-    addressLine } = req.body;
+    addressLine,
+  } = req.body;
 
   // Validate input
   if (!title || !description) {
@@ -175,7 +194,9 @@ app.post("/submit-problem", authenticateToken, async (req, res) => {
       district,
       city,
       area,
-      addressLine, // Associate the problem with the logged-in user
+      addressLine,
+      ProblemImages: paths, // Store the image paths in the database
+       // Associate the problem with the logged-in user
     });
 
     // Save the problem to the database

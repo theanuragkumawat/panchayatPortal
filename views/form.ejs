@@ -13,7 +13,7 @@
 
     <h2 class="text-center mb-4">Upload Problem</h2>
 
-    <form>
+    <form action="/submit-problem" method="POST" enctype="multipart/form-data">
 
       <!-- Title -->
       <div class="mb-3">
@@ -41,7 +41,7 @@
       <!-- Upload Photo -->
       <div class="mb-3">
         <label for="photo" class="form-label">Upload Photo</label>
-        <input class="form-control" type="file" id="photo" accept="image/*">
+        <input class="form-control" type="file" id="photo" accept="image/*" multiple>
       </div>
 
       <!-- Description -->

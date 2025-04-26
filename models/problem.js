@@ -30,6 +30,9 @@ const problemSchema = new mongoose.Schema({
     addressLine: {
         type: String,
     },
+    ProblemImages: {
+        type: Array,
+    },
 });
 
 module.exports = mongoose.model('Problem', problemSchema);
