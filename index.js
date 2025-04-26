@@ -109,6 +109,35 @@ app.post("/submit-problem", authenticateToken, async (req, res) => {
     res.status(500).send("Error submitting problem");
   }
 });
+const api = "https://api.postalpincode.in/pincode/303702";
+
+async function fetchPincodeData(api) {
+  try {
+    const response = await fetch(api);
+    const data = await response.json();
+    
+    // Data is an array, first element contains the PostOffice array
+    const postOffices = data[0].PostOffice;
+
+    // Now loop through and print each post office properly
+    postOffices.forEach((office, index) => {
+      console.log(`${index + 1}. ${office.Name} - ${office.District}, ${office.State}`);
+    });
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+fetchPincodeData(api);
+// const pinCode = async (api) => {
+//   const address = await fetch(api);
+//   const data = address.json();
+//   console.log(data);
+
+// }
+
+// pinCode(api);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
