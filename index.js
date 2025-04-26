@@ -158,6 +158,9 @@ const api = "https://api.postalpincode.in/pincode/303702";
 // }
 
 // fetchPincodeData(api);
+app.get("/submit-problem",(req, res) => {
+  res.render("form", { title: "Problem Upload" });
+})
 
 app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
 
