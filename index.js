@@ -42,12 +42,7 @@ app.get("/problemUpload", (req, res) => {
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
-<<<<<<< HEAD
-
-  try {
-=======
   try {   
->>>>>>> 72821c2064e86b3306674308fea3e1f9fe4226e2
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       fname,
