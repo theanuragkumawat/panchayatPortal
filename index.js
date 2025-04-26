@@ -25,7 +25,7 @@ mongoConnect("mongodb+srv://rajeevprajapat06:Rajeev%4063789@fashion-view.jr5jy.m
 });
 
 // Home route
-app.get("/", (req, res) => {
+app.get("/", authenticateToken,(req, res) => {
   res.render("index", { title: "Async/Await Example" });
 });
 app.get("/problems", (req, res) => {
@@ -42,7 +42,7 @@ app.post("/signup", async (req, res) => {
     console.log("User registered:", newUser);
 
     // Generate JWT token
-    const token = jwt.sign({ id: newUser._id, email: newUser.email }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: newUser._id, email: newUser.email }, JWT_SECRET, { expiresIn: '24h' });
     res.cookie('token', token, { httpOnly: true });
     res.redirect("/");
   } catch (err) {
@@ -51,21 +51,22 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+
 // Login route
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).send("User not found");
+      res.redirect("/login"); // Redirect to login if user not found
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).send("Invalid credentials");
+      res.redirect("/login"); // Redirect to login if password does not match
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
     res.cookie('token', token, { httpOnly: true });
     console.log("User logged in:", user);
     res.redirect("/");
@@ -79,7 +80,7 @@ app.post("/login", async (req, res) => {
 function authenticateToken(req, res, next) {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).send("Access Denied");
+    return res.redirect("/login"); // Redirect to login if no token is found
   }
   try {
     const verified = jwt.verify(token, JWT_SECRET);
