@@ -38,7 +38,6 @@ app.get("/login", (req, res) => {
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
-  
   try {   
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
