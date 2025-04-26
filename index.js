@@ -26,7 +26,7 @@ mongoConnect("mongodb+srv://rajeevprajapat06:Rajeev%4063789@fashion-view.jr5jy.m
 });
 
 // Home route
-app.get("/", authenticateToken,(req, res) => {
+app.get("/", authenticateToken, (req, res) => {
   res.render("index", { title: "Async/Await Example" });
 });
 app.get("/problems", (req, res) => {
@@ -35,11 +35,15 @@ app.get("/problems", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("sign", { title: "Login" });
 })
+
+app.get("/problemUpload", (req, res) => {
+  res.render("form", { title: "Problem Upload" });
+});
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
-  
-  try {   
+
+  try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({
       fname,
@@ -110,51 +114,80 @@ app.get("/dashboard", authenticateToken, (req, res) => {
 });
 
 // Route to submit a problem
-app.post("/submit-problem", authenticateToken, async (req, res) => {
-  const { title, description } = req.body;
-  try {
-    const newProblem = new Problem({
-      title,
-      description,
-      userId: req.user.id, // Associate the problem with the logged-in user
-    });
-    await newProblem.save();
-    console.log("Problem submitted:", newProblem);
-    res.status(201).send("Problem submitted successfully");
-  } catch (err) {
-    console.error("Error submitting problem:", err);
-    res.status(500).send("Error submitting problem");
-  }
-});
+// app.post("/submit-problem", authenticateToken, async (req, res) => {
+//   const { title, description } = req.body;
+//   try {
+//     const newProblem = new Problem({
+//       title,
+//       description,
+//       userId: req.user.id, // Associate the problem with the logged-in user
+//     });
+//     await newProblem.save();
+//     console.log("Problem submitted:", newProblem);
+//     res.status(201).send("Problem submitted successfully");
+//   } catch (err) {
+//     console.error("Error submitting problem:", err);
+//     res.status(500).send("Error submitting problem");
+//   }
+// });
 const api = "https://api.postalpincode.in/pincode/303702";
 
 async function fetchPincodeData(api) {
   try {
     const response = await fetch(api);
     const data = await response.json();
-    
+
     // Data is an array, first element contains the PostOffice array
-    const postOffices = data[0].PostOffice;
-
-    // Now loop through and print each post office properly
-    postOffices.forEach((office, index) => {
-      console.log(`${index + 1}. ${office.Name} - ${office.District}, ${office.State}`);
-    });
-
+    console.log(data[0].PostOffice);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 }
 
 fetchPincodeData(api);
-// const pinCode = async (api) => {
-//   const address = await fetch(api);
-//   const data = address.json();
-//   console.log(data);
 
-// }
+app.post("/submit-problem", authenticateToken, async (req, res) => {
+  const { title,
+    description,
+    urgency,
+    pincode,
+    state,
+    district,
+    city,
+    area,
+    addressLine } = req.body;
 
-// pinCode(api);
+  // Validate input
+  if (!title || !description) {
+    return res.status(400).send("Title and description are required");
+  }
+
+  try {
+    // Create a new problem document
+    const newProblem = await problemSchema.create({
+      userId: req.user.id, // Add the user's ObjectId from the JWT
+      title,
+      description,
+      urgency,
+      pincode,
+      state,
+      district,
+      city,
+      area,
+      addressLine, // Associate the problem with the logged-in user
+    });
+
+    // Save the problem to the database
+    await newProblem.save();
+    console.log("Problem uploaded:", newProblem);
+
+    // Respond with success
+    return res.redirect("/"); // Redirect to problems page after successful upload
+  } catch (err) {
+    console.error("Error uploading problem:", err);
+    res.status(500).send("Error uploading problem");
+  }
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
