@@ -28,6 +28,9 @@ mongoConnect("mongodb+srv://rajeevprajapat06:Rajeev%4063789@fashion-view.jr5jy.m
 app.get("/", (req, res) => {
   res.render("index", { title: "Async/Await Example" });
 });
+app.get("/problems", (req, res) => {
+  res.render("problems", { title: "Problems" });
+})
 
 // Signup route
 app.post("/signup", async (req, res) => {
