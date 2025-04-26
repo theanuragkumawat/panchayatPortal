@@ -6,13 +6,14 @@ const path = require('path');
 const User = require('./models/user'); // Assuming a User model exists
 const { mongoConnect } = require('./connection');
 const problemSchema = require('./models/problem'); // Assuming a Problem model exists
+const mongoose = require('mongoose');
 
 const app = express();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with a secure key
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.static(path.resolve("./public")));
@@ -31,23 +32,29 @@ app.get("/", authenticateToken,(req, res) => {
 app.get("/problems", (req, res) => {
   res.render("problems", { title: "Problems" });
 })
-
+app.get("/login", (req, res) => {
+  res.render("sign", { title: "Login" });
+})
 // Signup route
 app.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
+  const { fname, email, password } = req.body;
+  
+  try {   
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword });
-    await newUser.save();
+    const newUser = await User.create({
+      fname,
+      email,
+      password: hashedPassword,
+    });
+    // await newUser.save();
     console.log("User registered:", newUser);
-
     // Generate JWT token
     const token = jwt.sign({ id: newUser._id, email: newUser.email }, JWT_SECRET, { expiresIn: '24h' });
     res.cookie('token', token, { httpOnly: true });
-    res.redirect("/");
+    return res.redirect("/"); // Redirect to login after signup
   } catch (err) {
     console.error("Signup error:", err);
-    res.status(500).send("Error registering user");
+    return res.redirect("/login"); // Redirect to login on error
   }
 });
 
@@ -55,24 +62,30 @@ app.post("/signup", async (req, res) => {
 // Login route
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+
   try {
+    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
-      res.redirect("/login"); // Redirect to login if user not found
+      console.error("User not found");
+      return res.status(400).send("Invalid email or password"); // Send an error response
     }
+
+    // Compare the provided password with the hashed password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      res.redirect("/login"); // Redirect to login if password does not match
+      console.error("Invalid password");
+      return res.status(400).send("Invalid email or password"); // Send an error response
     }
 
     // Generate JWT token
     const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
     res.cookie('token', token, { httpOnly: true });
     console.log("User logged in:", user);
-    res.redirect("/");
+    return res.redirect("/"); // Redirect to home after login
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).send("Error logging in");
+    return res.status(500).send("Error logging in"); // Send a generic error response
   }
 });
 

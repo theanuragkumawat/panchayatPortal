@@ -3,7 +3,7 @@ const { type } = require('jquery');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    name: {
+    fname: {
         type: String,
         required: true
     },
@@ -15,16 +15,16 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-    path: {
-        type: String,
-        default: "/images/blank-profile-picture-973460_1280.webp"
-    },
-    role: {
-        type: String,
-        enum: ["USER", "ADMIN"],
-        default: "USER",
     }
+    // path: {
+    //     type: String,
+    //     default: "/images/blank-profile-picture-973460_1280.webp"
+    // },
+    // role: {
+    //     type: String,
+    //     enum: ["USER", "ADMIN"],
+    //     default: "USER",
+    // }
 }, { timestamps: true });
 
 userSchema.statics.hashPassword = (password) => {
@@ -36,6 +36,4 @@ userSchema.methods.isValidPassword = async function(password) {
 }
 
 const User = mongoose.model("User", userSchema);
-module.exports = {
-    User,
-}
+module.exports = User;
