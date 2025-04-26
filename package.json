@@ -1,0 +1,32 @@
+{
+  "name": "asyncawaiters",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajeevprajapatt/AsyncAwaiters.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rajeevprajapatt/AsyncAwaiters/issues"
+  },
+  "homepage": "https://github.com/rajeevprajapatt/AsyncAwaiters#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.14.0",
+    "multer": "^1.4.5-lts.2"
+  }
+}
