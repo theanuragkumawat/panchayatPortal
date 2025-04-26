@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const User = require('./models/user'); // Assuming a User model exists
 const { mongoConnect } = require('./connection');
+const problemSchema = require('./models/problem'); // Assuming a Problem model exists
 
 const app = express();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with a secure key
@@ -89,6 +90,24 @@ function authenticateToken(req, res, next) {
 // Protected route example
 app.get("/dashboard", authenticateToken, (req, res) => {
   res.send(`Welcome to your dashboard, user ID: ${req.user.id}`);
+});
+
+// Route to submit a problem
+app.post("/submit-problem", authenticateToken, async (req, res) => {
+  const { title, description } = req.body;
+  try {
+    const newProblem = new Problem({
+      title,
+      description,
+      userId: req.user.id, // Associate the problem with the logged-in user
+    });
+    await newProblem.save();
+    console.log("Problem submitted:", newProblem);
+    res.status(201).send("Problem submitted successfully");
+  } catch (err) {
+    console.error("Error submitting problem:", err);
+    res.status(500).send("Error submitting problem");
+  }
 });
 
 app.listen(3000, () => {
