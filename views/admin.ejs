@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Village Problems (No JS)</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="controls">
+      <button>All</button>
+      <button>Pending</button>
+      <button>Completed</button>
+      <button>Sort by Title</button>
+    </div>
+    <h1>Admin Panel</h1>
+  </div>
+
+  <main id="problems-container">
+
+    <!-- Problem Card 1 -->
+    <div class="problem-card">
+      <img src="https://images.unsplash.com/photo-1581093588401-1f1c7c6c85a2" alt="Water Problem">
+      <div class="content">
+        <h3>Water Supply Problem</h3>
+        <p>The village is facing severe drinking water shortage.</p>
+        <div class="status-dropdown">
+          <label for="status1">Status:</label>
+          <select id="status1" name="status">
+            <option selected>Pending</option>
+            <option>Completed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem Card 2 -->
+    <div class="problem-card">
+      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" alt="Broken Roads">
+      <div class="content">
+        <h3>Broken Roads</h3>
+        <p>Main connecting road is broken due to heavy rains.</p>
+        <div class="status-dropdown">
+          <label for="status2">Status:</label>
+          <select id="status2" name="status">
+            <option>Pending</option>
+            <option selected>Completed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem Card 3 -->
+    <div class="problem-card">
+      <img src="https://images.unsplash.com/photo-1581320546864-9ed240186f2c" alt="No Electricity">
+      <div class="content">
+        <h3>No Electricity</h3>
+        <p>Frequent power cuts affecting the villagers' life.</p>
+        <div class="status-dropdown">
+          <label for="status3">Status:</label>
+          <select id="status3" name="status">
+            <option selected>Pending</option>
+            <option>Completed</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
