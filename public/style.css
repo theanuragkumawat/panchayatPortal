@@ -23,11 +23,13 @@
     color: #2f3640;
   }
   
-  /* Problems Grid */
+  /* Problems Container (now vertical) */
   .problems-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
   }
   
   /* Problem Card */
@@ -45,7 +47,7 @@
   
   .problem-card img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
   }
   
