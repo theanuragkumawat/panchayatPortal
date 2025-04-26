@@ -12,7 +12,7 @@ const app = express();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with a secure key
 
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -42,13 +42,10 @@ app.get("/problemUpload", (req, res) => {
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
-<<<<<<< HEAD
-
-  try {
-=======
+  console.log("hello")
   try {   
->>>>>>> 72821c2064e86b3306674308fea3e1f9fe4226e2
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       fname,
       email,
@@ -108,7 +105,7 @@ function authenticateToken(req, res, next) {
     req.user = verified;
     next();
   } catch (err) {
-    res.status(403).send("Invalid Token");
+    return res.redirect("/login"); // Redirect to login if token is invalid
   }
 }
 
@@ -136,19 +133,19 @@ app.get("/dashboard", authenticateToken, (req, res) => {
 // });
 const api = "https://api.postalpincode.in/pincode/303702";
 
-async function fetchPincodeData(api) {
-  try {
-    const response = await fetch(api);
-    const data = await response.json();
+// async function fetchPincodeData(api) {
+//   try {
+//     const response = await fetch(api);
+//     const data = await response.json();
 
-    // Data is an array, first element contains the PostOffice array
-    console.log(data[0].PostOffice);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
+//     // Data is an array, first element contains the PostOffice array
+//     console.log(data[0].PostOffice);
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// }
 
-fetchPincodeData(api);
+// fetchPincodeData(api);
 
 app.post("/submit-problem", authenticateToken, async (req, res) => {
   const { title,
