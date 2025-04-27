@@ -8,6 +8,10 @@ const { mongoConnect } = require('./connection');
 const problem = require('./models/problem.js'); // Assuming a Problem model exists
 const mongoose = require('mongoose');
 const multer = require('multer');
+const dotenv = require('dotenv');
+dotenv.config();
+
+const port = process.env.PORT || 3000;
 
 const Product_Image_Path = './public/ProblemImages';
 const storage = multer.diskStorage({
@@ -29,6 +33,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 app.use(express.static(path.resolve("./public")));
+app.use(express.static(path.resolve("./public")));
 
 mongoConnect("mongodb+srv://rajeevprajapat06:Rajeev%4063789@fashion-view.jr5jy.mongodb.net/PunchayatAI?retryWrites=true&w=majority&appName=Fashion-View"
 ).then(() => {
@@ -47,6 +52,7 @@ app.get("/problems", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("sign", { title: "Login" });
 })
+
 
 app.get("/problemUpload", (req, res) => {
   res.render("form", { title: "Problem Upload" });
@@ -99,10 +105,12 @@ app.post("/login", async (req, res) => {
   try {
     // Find the user by email
     const user = await User.findOne({ email });
+    // console.log(user.role);
     if (!user) {
       console.error("User not found");
       return res.status(400).send("Invalid email or password"); // Send an error response
     }
+
 
     // Compare the provided password with the hashed password
     const isMatch = await bcrypt.compare(password, user.password);
@@ -110,12 +118,22 @@ app.post("/login", async (req, res) => {
       console.error("Invalid password");
       return res.status(400).send("Invalid email or password"); // Send an error response
     }
-
-    // Generate JWT token
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
-    res.cookie('token', token, { httpOnly: true });
-    console.log("User logged in:", user);
-    return res.redirect("/"); // Redirect to home after login
+    if (user.role === "USER") {
+      // Generate JWT token
+      const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
+      res.cookie('token', token, { httpOnly: true });
+      console.log("User logged in:", user);
+      return res.redirect("/"); // Redirect to home after login
+    }
+    else if (user.role === "ADMIN") {
+      // Generate JWT token
+      const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '24h' });
+      res.cookie('token', token, { httpOnly: true });
+      console.log("Admin logged in:", user);
+      return res.redirect("/admin"); // Redirect to admin page after login
+    }
+    
+   
   } catch (err) {
     console.error("Login error:", err);
     return res.status(500).send("Error logging in"); // Send a generic error response
@@ -141,6 +159,18 @@ function authenticateToken(req, res, next) {
 app.get("/dashboard", authenticateToken, (req, res) => {
   res.send(`Welcome to your dashboard, user ID: ${req.user.id}`);
 });
+app.get("/admin", async (req, res) => {
+  const UserProblem = await problem.find();
+  res.render("admin", { title: "Your Problems", problems: UserProblem });
+});
+
+app.get("/admin/:problemId", async (req, res) => {
+  const problemDetail = await problem.findById(req.params.problemId);
+  if (!problemDetail) {
+    return res.status(404).send("Problem not found");
+  }
+  res.render("problem-detail", { title: "Problem Details", problemDetail:[problemDetail] });
+});   
 
 const api = "https://api.postalpincode.in/pincode/303702";
 
@@ -199,57 +229,7 @@ app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (r
     res.status(500).send("Error uploading problem");
   }
 });
-// app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
 
-//   let paths = [];
-//   req.files.forEach(file => {
-//     paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
-//   })
-
-//   const { title,
-//     description,
-//     urgency,
-//     pincode,
-//     state,
-//     district,
-//     city,
-//     area,
-//   } = req.body;
-//   console.log("Form data:", req.body);
-
-//   // Validate input
-//   if (!title || !description) {
-//     return res.status(400).send("Title and description are required");
-//   }
-
-//   try {
-//     // Create a new problem document
-//     const newProblem = await problem.create({
-//       userId: req.user.id, // Add the user's ObjectId from the JWT
-//       title,
-//       description,
-//       urgency,
-//       pincode,
-//       state,
-//       district,
-//       city,
-//       area,
-//       ProblemImages: paths, // Store the image paths in the database
-//        // Associate the problem with the logged-in user
-//     });
-
-//     // Save the problem to the database
-//     await newProblem.save();
-//     console.log("Problem uploaded:", newProblem);
-
-//     // Respond with success
-//     return res.redirect("/"); // Redirect to problems page after successful upload
-//   } catch (err) {
-//     console.error("Error uploading problem:", err);
-//     res.status(500).send("Error uploading problem");
-//   }
-// });
-
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log('Server is running on port 3000');
 });

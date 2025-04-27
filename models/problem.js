@@ -27,9 +27,7 @@ const problemSchema = new mongoose.Schema({
     area: {
         type: String,
     },
-    addressLine: {
-        type: String,
-    },
+    
     ProblemImages: {
         type: Array,
     },

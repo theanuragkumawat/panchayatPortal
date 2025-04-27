@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery Page</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f7f9fc;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+    .card {
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.15);
+    }
+    .card-img-top {
+      height: 300px;
+      object-fit: cover;
+    }
+    .urgency-tag {
+        width: 150px;
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 0.9em;
+      font-weight: bold;
+      border-radius: 30px;
+      margin-bottom: 10px;
+    }
+    .low {
+      background-color: #28a745;
+      color: white;
+    }
+    .high {
+      background-color: #dc3545;
+      color: white;
+    }
+    .card-title {
+      font-size: 1.8em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .card-text {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    .address {
+      font-size: 1em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="row g-4">
+
+    <% if (locals.problemDetail) { %>
+        <% problemDetail.forEach(element => { %>
+          <div class="col-12 mb-4">
+            <div class="h-100 p-4" style="background-color: #f9f9f9;">
+              <div class="d-flex flex-column h-100">
+                <h2 class="mb-3"><%= element.title %></h2>
+                <span class="urgency-tag low mb-4" style="font-size: 1rem; color: #fff;"><%= element.urgency %> Urgency</span>
+                <p class="mb-3" style="font-size: 1.1rem;"><%= element.description %></p>
+                <p class="mb-5" style="color: #666;">
+                  <i class="bi bi-geo-alt"></i> 
+                  <%= element.area %> <%= element.city %>, <%= element.district %>, <%= element.state %>, <%= element.pincode %>
+                </p>
+      
+                <div class="row g-2 mt-auto">
+                  <% element.ProblemImages.slice(0, 4).forEach((image, index) => { %>
+                    <div class="col-6">
+                      <img src="/<%= image %>" class="img-fluid rounded" style="width: 100%; height: auto;" alt="Problem Image">
+                    </div>
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+      
+      
+
+  </div>
+</div>
+
+<!-- Bootstrap Icons (optional for address icon) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
