@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const User = require('./models/user'); // Assuming a User model exists
 const { mongoConnect } = require('./connection');
-const problemSchema = require('./models/problem'); // Assuming a Problem model exists
+const problem = require('./models/problem.js'); // Assuming a Problem model exists
 const mongoose = require('mongoose');
 const multer = require('multer');
 
@@ -126,68 +126,42 @@ app.get("/dashboard", authenticateToken, (req, res) => {
   res.send(`Welcome to your dashboard, user ID: ${req.user.id}`);
 });
 
-// Route to submit a problem
-// app.post("/submit-problem", authenticateToken, async (req, res) => {
-//   const { title, description } = req.body;
-//   try {
-//     const newProblem = new Problem({
-//       title,
-//       description,
-//       userId: req.user.id, // Associate the problem with the logged-in user
-//     });
-//     await newProblem.save();
-//     console.log("Problem submitted:", newProblem);
-//     res.status(201).send("Problem submitted successfully");
-//   } catch (err) {
-//     console.error("Error submitting problem:", err);
-//     res.status(500).send("Error submitting problem");
-//   }
-// });
 const api = "https://api.postalpincode.in/pincode/303702";
 
-// async function fetchPincodeData(api) {
-//   try {
-//     const response = await fetch(api);
-//     const data = await response.json();
-
-//     // Data is an array, first element contains the PostOffice array
-//     console.log(data[0].PostOffice);
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// }
-
 // fetchPincodeData(api);
-app.get("/submit-problem",(req, res) => {
-  res.render("form", { title: "Problem Upload" });
-})
-
 app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
-
-  let paths = [];
-  req.files.forEach(file => {
-    paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
-  })
-
-  const { title,
-    description,
-    urgency,
-    pincode,
-    state,
-    district,
-    city,
-    area,
-    addressLine,
-  } = req.body;
-
-  // Validate input
-  if (!title || !description) {
-    return res.status(400).send("Title and description are required");
-  }
-
   try {
+    // Extract file paths
+    let paths = [];
+
+    req.files.forEach(file => {
+      paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
+    });
+
+    console.log(req.body);
+
+    // Extract form data
+    const {
+      title,
+      description,
+      urgency,
+      pincode,
+      state,
+      district,
+      city,
+      area,
+    } = req.body;
+
+    console.log("Form data:", req.body);
+    // console.log("Uploaded files:", paths);
+
+    // Validate input
+    if (!title || !description) {
+      return res.status(400).send("Title and description are required");
+    }
+
     // Create a new problem document
-    const newProblem = await problemSchema.create({
+    const newProblem = await problem.create({
       userId: req.user.id, // Add the user's ObjectId from the JWT
       title,
       description,
@@ -197,22 +171,68 @@ app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (r
       district,
       city,
       area,
-      addressLine,
       ProblemImages: paths, // Store the image paths in the database
-       // Associate the problem with the logged-in user
     });
 
-    // Save the problem to the database
-    await newProblem.save();
     console.log("Problem uploaded:", newProblem);
 
     // Respond with success
-    return res.redirect("/"); // Redirect to problems page after successful upload
+    return res.redirect("/"); // Redirect to home page after successful upload
   } catch (err) {
     console.error("Error uploading problem:", err);
     res.status(500).send("Error uploading problem");
   }
 });
+// app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
+
+//   let paths = [];
+//   req.files.forEach(file => {
+//     paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
+//   })
+
+//   const { title,
+//     description,
+//     urgency,
+//     pincode,
+//     state,
+//     district,
+//     city,
+//     area,
+//   } = req.body;
+//   console.log("Form data:", req.body);
+
+//   // Validate input
+//   if (!title || !description) {
+//     return res.status(400).send("Title and description are required");
+//   }
+
+//   try {
+//     // Create a new problem document
+//     const newProblem = await problem.create({
+//       userId: req.user.id, // Add the user's ObjectId from the JWT
+//       title,
+//       description,
+//       urgency,
+//       pincode,
+//       state,
+//       district,
+//       city,
+//       area,
+//       ProblemImages: paths, // Store the image paths in the database
+//        // Associate the problem with the logged-in user
+//     });
+
+//     // Save the problem to the database
+//     await newProblem.save();
+//     console.log("Problem uploaded:", newProblem);
+
+//     // Respond with success
+//     return res.redirect("/"); // Redirect to problems page after successful upload
+//   } catch (err) {
+//     console.error("Error uploading problem:", err);
+//     res.status(500).send("Error uploading problem");
+//   }
+// });
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

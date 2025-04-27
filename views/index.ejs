@@ -4,296 +4,116 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Panchayat</title>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="bootstrap.css" />
   </head>
-
   <body>
-    <!-- //nav bar//  -->
-    <nav class="navbar">
-      <a href="#" class="logo">Panchayat Portal</a>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Schemes</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <h2 class="navbar-brand">🌿 Panchayat Portal</h2>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Schemes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
     </nav>
-    <!-- nav bar ends -->
 
-<<<<<<< HEAD
-    <div class="container py-1">
-        <div class="row justify-content-center g-4">
-          <!-- Problem Upload Div -->
-          <div class="col-md-4">
-            <div class="card shadow-sm custom-click custom-bg" onclick="window.location.href='upload.html';">
+    <!-- Content Section -->
+    <div class="container py-5">
+      <div class="row justify-content-center g-4">
+
+        <!-- Problem Upload Div -->
+        <div class="col-12 col-md-6">
+          <a href="/problemUpload">
+            <div class="card h-100 shadow-sm custom-click custom-bg">
               <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
                 <h3 class="card-title mb-3">Problem Upload</h3>
-                <p class="card-text">
-                  Click here to upload a new problem .
-                </p>
+                <p class="card-text">Click here to upload a new problem with title, urgency, location, description, and photo.</p>
               </div>
             </div>
-          </div>
-      
-          <!-- Problem Status Div -->
-          <div class="col-md-4">
-            <div class="card shadow-sm custom-click custom-bg" onclick="window.location.href='status.html';">
-              <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-                <h3 class="card-title mb-3">Problem Status</h3>
-                <p class="card-text">
-                  Click here to view the status of your uploaded problems.
-                </p>
-              </div>
-            </div>
-          </div>
+          </a>
         </div>
-      </div>
-      
-</div>
-    <section id="about-us" class="card">
-      <h2>About Us</h2>
-      <p>
-        Our Panchayat is dedicated to improving the quality of life in our
-        village through inclusive and participatory governance. Our mission is
-        to foster sustainable development and empower local residents by
-        effectively implementing rural development schemes. We prioritize
-        transparency, accountability, and community involvement in all
-        initiatives. For example, we focus on livelihood programs that guarantee
-        employment to rural
-        families&#8203;:contentReference[oaicite:0]{index=0}, and we leverage
-        digital tools to enhance coordination and openness in
-        governance&#8203;:contentReference[oaicite:1]{index=1}.
-    </p>
-    <p>
-        Our vision is an empowered village community with access to essential
-        services and infrastructure. We strive to strengthen self-governance at
-        the grassroots level and ensure that every household benefits from
-        government programs. By encouraging local leadership and social equity,
-        we aim to build a resilient and resourceful Panchayat for future
-        generations.
-    </p>
-</section>
-
-<section id="schemes" class="card">
-    <h2>Schemes</h2>
-    <ul>
-        <li>
-            <strong>MGNREGA:</strong> The Mahatma Gandhi National Rural Employment
-          Guarantee Act guarantees 100 days of paid work per year to each rural
-          household, boosting employment and creating community
-          assets&#8203;:contentReference[oaicite:2]{index=2}.
-        </li>
-        <li>
-            <strong>PMAY-G:</strong> The Pradhan Mantri Awaas Yojana – Gramin is a
-            flagship rural housing scheme aimed at providing “Housing for All” by
-            2022 (extended to 2028-29), with a goal to construct 2 crore homes for
-          the rural poor&#8203;:contentReference[oaicite:3]{index=3}.
-        </li>
-        <li>
-            <strong>PMFBY:</strong> The Pradhan Mantri Fasal Bima Yojana offers
-            comprehensive crop insurance for farmers’ yields. It reduces the
-            financial burden on farmers by covering crop losses and ensuring
-          timely claim settlements&#8203;:contentReference[oaicite:4]{index=4}.
-        </li>
-        <li>
-            <strong>PMUY:</strong> The Pradhan Mantri Ujjwala Yojana provides free
-          or subsidized LPG connections to women from Below Poverty Line
-          families, improving health and safety by giving access to clean
-          cooking fuel&#8203;:contentReference[oaicite:5]{index=5}.
-        </li>
-    </ul>
-</section>
-
-<section id="services" class="card">
-    <h2>Services</h2>
-    <ul>
-        <li>
-            <strong>Issuing Certificates:</strong> We provide official
-            certificates (e.g., birth, death, residence, caste, income) to
-            residents. These documents are recognized for various civic and legal
-            purposes&#8203;:contentReference[oaicite:6]{index=6}.
-        </li>
-        <li>
-            <strong>Grievance Redressal:</strong> The Panchayat addresses local
-            grievances by providing a platform to register complaints (e.g., about
-            roads, water supply, or utilities) and follows up on their resolution.
-            The e-Panchayat portal enhances transparency and accountability in
-            tracking these issues&#8203;:contentReference[oaicite:7]{index=7}.
-        </li>
-        <li>
-            <strong>Welfare Assistance:</strong> Our office helps citizens apply
-            for and receive benefits from social welfare programs (such as
-            pensions, scholarships, and health schemes). We ensure eligible
-            families are enrolled in applicable rural development programs,
-            improving livelihoods and social
-            security&#8203;:contentReference[oaicite:8]{index=8}&#8203;:contentReference[oaicite:9]{index=9}.
-        </li>
-    </ul>
-</section>
-<!-- Footer Start -->
-<footer class="footer">
-    <div class="container-footer">
-        <div class="footer-top">
-            <h2 class="footer-logo">🌿 Panchayat Portal</h2>
-            <p>Empowering Rural Development & Governance</p>
-        </div>
-        
-        <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="#about-us">About</a>
-            <a href="#schemes">Schemes</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-        </div>
-        
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 Panchayat Portal | All Rights Reserved.</p>
-        </div>
-    </div>
-</footer>
-<!-- Footer End -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-=======
-</head>
-
-<body>
-
-
-  <!-- //nav bar//  -->
-  <nav class="navbar">
-    <div class="footer-top">
-      <h2 class="footer-logo">🌿 Panchayat Portal</h2>
-    </div>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Schemes</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-  <!-- nav bar ends -->
-
-
-
-  <div class="container py-5">
-
-    <div class="row justify-content-center g-4">
-
-      <!-- Problem Upload Div -->
-      <div class="col-12 col-md-6">
-        <a href="/submit-problem">
-          <div class="card h-100 shadow-sm custom-click custom-bg" onclick="window.location.href='upload.html';">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-              <h3 class="card-title mb-3">Problem Upload</h3>
-              <p class="card-text ">Click here to upload a new problem with title, urgency, location, description, and
-                photo.</p>
-            </div>
-          </div>
-        </a>
 
         <!-- Problem Status Div -->
         <div class="col-12 col-md-6">
-          <div class="card h-100 shadow-sm custom-click custom-bg" onclick="window.location.href='status.html';">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
-              <h3 class="card-title mb-3">Problem Status</h3>
-              <p class="card-text ">Click here to view the status of your uploaded problems.</p>
+          <a href="/status">
+            <div class="card h-100 shadow-sm custom-click custom-bg">
+              <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                <h3 class="card-title mb-3">Problem Status</h3>
+                <p class="card-text">Click here to view the status of your uploaded problems.</p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
-
       </div>
 
+      <!-- About Us Section -->
+      <section id="about-us" class="card mb-4 p-4">
+        <h2>About Us</h2>
+        <p>Our Panchayat is dedicated to improving the quality of life in our village through inclusive and participatory governance. Our mission is to foster sustainable development and empower local residents...</p>
+      </section>
+
+      <!-- Schemes Section -->
+      <section id="schemes" class="card mb-4 p-4">
+        <h2>Schemes</h2>
+        <ul>
+          <li><strong>MGNREGA:</strong> Employment guarantee for rural households...</li>
+          <li><strong>PMAY-G:</strong> Housing for All scheme...</li>
+          <li><strong>PMFBY:</strong> Crop insurance for farmers...</li>
+          <li><strong>PMUY:</strong> LPG connections for women...</li>
+        </ul>
+      </section>
+
+      <!-- Services Section -->
+      <section id="services" class="card mb-4 p-4">
+        <h2>Services</h2>
+        <ul>
+          <li><strong>Issuing Certificates:</strong> Birth, death, residence, etc.</li>
+          <li><strong>Grievance Redressal:</strong> Addressing local complaints...</li>
+          <li><strong>Welfare Assistance:</strong> Providing social benefits...</li>
+        </ul>
+      </section>
     </div>
-    <section id="about-us" class="card">
-      <h2>About Us</h2>
-      <p>Our Panchayat is dedicated to improving the quality of life in our village through inclusive and participatory
-        governance. Our mission is to foster sustainable development and empower local residents by effectively
-        implementing rural development schemes. We prioritize transparency, accountability, and community involvement in
-        all initiatives. For example, we focus on livelihood programs that guarantee employment to rural
-        families&#8203;:contentReference[oaicite:0]{index=0}, and we leverage digital tools to enhance coordination and
-        openness in governance&#8203;:contentReference[oaicite:1]{index=1}.</p>
-      <p>Our vision is an empowered village community with access to essential services and infrastructure. We strive to
-        strengthen self-governance at the grassroots level and ensure that every household benefits from government
-        programs. By encouraging local leadership and social equity, we aim to build a resilient and resourceful
-        Panchayat for future generations.</p>
-    </section>
 
-    <section id="schemes" class="card">
-      <h2>Schemes</h2>
-      <ul>
-        <li><strong>MGNREGA:</strong> The Mahatma Gandhi National Rural Employment Guarantee Act guarantees 100 days of
-          paid work per year to each rural household, boosting employment and creating community
-          assets&#8203;:contentReference[oaicite:2]{index=2}.</li>
-        <li><strong>PMAY-G:</strong> The Pradhan Mantri Awaas Yojana – Gramin is a flagship rural housing scheme aimed
-          at providing “Housing for All” by 2022 (extended to 2028-29), with a goal to construct 2 crore homes for the
-          rural poor&#8203;:contentReference[oaicite:3]{index=3}.</li>
-        <li><strong>PMFBY:</strong> The Pradhan Mantri Fasal Bima Yojana offers comprehensive crop insurance for
-          farmers’ yields. It reduces the financial burden on farmers by covering crop losses and ensuring timely claim
-          settlements&#8203;:contentReference[oaicite:4]{index=4}.</li>
-        <li><strong>PMUY:</strong> The Pradhan Mantri Ujjwala Yojana provides free or subsidized LPG connections to
-          women from Below Poverty Line families, improving health and safety by giving access to clean cooking
-          fuel&#8203;:contentReference[oaicite:5]{index=5}.</li>
-      </ul>
-    </section>
-
-    <section id="services" class="card">
-      <h2>Services</h2>
-      <ul>
-        <li><strong>Issuing Certificates:</strong> We provide official certificates (e.g., birth, death, residence,
-          caste, income) to residents. These documents are recognized for various civic and legal
-          purposes&#8203;:contentReference[oaicite:6]{index=6}.</li>
-        <li><strong>Grievance Redressal:</strong> The Panchayat addresses local grievances by providing a platform to
-          register complaints (e.g., about roads, water supply, or utilities) and follows up on their resolution. The
-          e-Panchayat portal enhances transparency and accountability in tracking these
-          issues&#8203;:contentReference[oaicite:7]{index=7}.</li>
-        <li><strong>Welfare Assistance:</strong> Our office helps citizens apply for and receive benefits from social
-          welfare programs (such as pensions, scholarships, and health schemes). We ensure eligible families are
-          enrolled in applicable rural development programs, improving livelihoods and social
-          security&#8203;:contentReference[oaicite:8]{index=8}&#8203;:contentReference[oaicite:9]{index=9}.</li>
-      </ul>
-    </section>
-    <!-- Footer Start -->
-    <footer class="footer">
+    <!-- Footer -->
+    <footer class="footer bg-light p-4 mt-5">
       <div class="container-footer">
-        <div class="footer-top">
+        <div class="footer-top text-center">
           <h2 class="footer-logo">🌿 Panchayat Portal</h2>
           <p>Empowering Rural Development & Governance</p>
         </div>
 
-        <div class="footer-links">
-          <a href="#">Home</a>
-          <a href="#about-us">About</a>
-          <a href="#schemes">Schemes</a>
-          <a href="#services">Services</a>
+        <div class="footer-links text-center">
+          <a href="#">Home</a> | 
+          <a href="#about-us">About</a> | 
+          <a href="#schemes">Schemes</a> | 
+          <a href="#services">Services</a> | 
           <a href="#contact">Contact</a>
         </div>
 
-        <div class="social-icons">
+        <div class="social-icons text-center mt-3">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-twitter"></i></a>
           <a href="#"><i class="fab fa-instagram"></i></a>
           <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom text-center mt-4">
           <p>&copy; 2025 Panchayat Portal | All Rights Reserved.</p>
         </div>
       </div>
     </footer>
-    <!-- Footer End -->
 
+    <!-- Bootstrap and Custom JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
->>>>>>> 117ec40c4fda39dba8c0a9e09a34bcb82cb88dcf
-</body>
+  </body>
 </html>
