@@ -15,35 +15,18 @@
   <main class="problems-container">
 
     <!-- Problem Card 1 -->
-    <div class="problem-card">
-      <img src="https://media.istockphoto.com/id/1200870119/photo/indian-tribal-village-at-bolpur-west-bengal-india-with-view-of-mud-hut-and-unpaved-village.webp?a=1&b=1&s=612x612&w=0&k=20&c=ZgSBbGQfXWYZ-XYhDSFksbQGklV4-nczCNX9q8qhfnQ=" alt="Water Problem">
-      <div class="content">
-        <h3>Water Supply Problem</h3>
-        <p>The village is facing severe drinking water shortage.</p>
-        <span class="status pending">Pending</span>
-      </div>
-    </div>
-
-    <!-- Problem Card 2 -->
-    <div class="problem-card">
-      <img src="https://media.istockphoto.com/id/1289576893/photo/a-village-road-through-a-paddy-field-ready-to-harvest.jpg?s=612x612&w=0&k=20&c=51Nkm1YhtR0tvSaj3vOJRoLDZgXWdH4zTMhq_LRdMPk=" alt="Broken Roads">
-      <div class="content">
-        <h3>Broken Roads</h3>
-        <p>Main connecting road is broken due to heavy rains.</p>
-        <span class="status completed">Completed</span>
-      </div>
-    </div>
-
-    <!-- Problem Card 3 -->
-    <div class="problem-card">
-      <img src="https://media.istockphoto.com/id/1970772376/photo/rural-life-of-a-village.jpg?s=612x612&w=0&k=20&c=kXFflHmtcnQtmOqiyWj_dKpwjMRNTwMzKpHhBfKfiXo=" alt="No Electricity">
-      <div class="content">
-        <h3>No Electricity</h3>
-        <p>Frequent power cuts affecting the villagers' life.</p>
-        <span class="status pending">Pending</span>
-      </div>
-    </div>
-
+     <% if (locals.problems) { %>
+      <% problems.forEach(element => { %>
+        <div class="problem-card">
+          <img src="<%= element.ProblemImages[0] %>" alt="Water Problem">
+          <div class="content">
+            <h3><%= element.title %></h3>
+            <p><%= element.description %></p>
+            <span class="status pending"><%= element.status %></span>
+          </div>
+        </div>
+      <% }) %>
+     <% } %>
   </main>
 
 </body>
