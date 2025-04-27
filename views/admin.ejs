@@ -102,7 +102,7 @@
 <div class="container">
   <% if (locals.problems) { %>
     <% problems.forEach(element => { %>
-      <a href="/<%= element._id %>">
+      <a href="/admin/<%= element._id %>">
         <div class="card">
           <img src="<%= element.ProblemImages[0] %>" alt="Project Image">
           <div class="card-content">

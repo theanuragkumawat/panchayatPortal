@@ -15,16 +15,16 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
     // path: {
     //     type: String,
     //     default: "/images/blank-profile-picture-973460_1280.webp"
     // },
-    // role: {
-    //     type: String,
-    //     enum: ["USER", "ADMIN"],
-    //     default: "USER",
-    // }
+    role: {
+        type: String,
+        enum: ["USER", "ADMIN"],
+        default: "USER",
+    }
 }, { timestamps: true });
 
 userSchema.statics.hashPassword = (password) => {
