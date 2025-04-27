@@ -1,183 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Villagers Problem Admin Panel</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Panel - Beautiful Cards</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-}
+    /* Navbar */
+    .navbar {
+      background: #007BFF;
+      padding: 20px 40px;
+      color: white;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px;
-}
+    .container {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 30px;
+    }
 
-.sidebar h2 {
-    text-align: center;
-}
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.15);
+    }
 
-.sidebar ul li {
-    margin: 10px 0;
-}
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
 
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
+    .card:hover img {
+      transform: scale(1.05);
+    }
 
-.sidebar ul li a:hover {
-    text-decoration: underline;
-}
+    .card-content {
+      padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-.main-content {
-    flex: 1;
-    padding: 20px;
-}
+    .card-title {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #222;
+    }
 
-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
+    .card-description {
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      color: #555;
+      flex: 1;
+    }
 
-.dashboard {
-    margin-bottom: 40px;
-}
+    .status-dropdown {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s;
+    }
 
-.dashboard h2 {
-    margin-bottom: 20px;
-}
-
-.cards {
-    display: flex;
-    gap: 20px;
-}
-
-.card {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border-radius: 8px;
-    width: 30%;
-    text-align: center;
-}
-
-.add-problem {
-    background-color: #ecf0f1;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-form label {
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-    </style>
+    .status-dropdown:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>Admin Panel</h2>
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Problem Analysis</a></li>
-            <li><a href="#">Solutions</a></li>
-            <li><a href="#">Logout</a></li>
-        </ul>
+<div class="navbar text-center">
+  Admin Panel
+</div>
+
+<div class="container">
+    
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1581090700227-1c065c7b1b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Project Image">
+    <div class="card-content">
+      <div class="card-title">Project Alpha</div>
+      <div class="card-description">Building a next-gen mobile app for students and professionals around the world.</div>
+      <select class="status-dropdown">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
     </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <header>
-            <h1>Welcome, Admin</h1>
-        </header>
-
-        <!-- Dashboard -->
-        <section class="dashboard">
-            <h2>Dashboard Overview</h2>
-            <div class="cards">
-                <div class="card">
-                    <h3>Total Problems</h3>
-                    <p id="totalProblems">50</p>
-                </div>
-                <div class="card">
-                    <h3>Resolved Problems</h3>
-                    <p id="resolvedProblems">30</p>
-                </div>
-                <div class="card">
-                    <h3>Pending Problem</h3>
-                    <p id="pendingProblem">20</p>
-                </div>
-            </div>
-        </section>
-
-        
+  </div>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1559027615-5b6b18b6a5d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Website Image">
+    <div class="card-content">
+      <div class="card-title">Website Redesign</div>
+      <div class="card-description">Redesigning the main website to a modern, sleek, and responsive version for all devices.</div>
+      <select class="status-dropdown">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1523475496153-3a12fcf23b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="New Feature">
+    <div class="card-content">
+      <div class="card-title">New Feature Launch</div>
+      <div class="card-description">Launching the new real-time collaboration feature for premium users globally.</div>
+      <select class="status-dropdown">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 </body>
-<script>
-    // Sample JavaScript code for adding problems and updating dashboard
-document.getElementById("addProblemForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const title = document.getElementById("problemTitle").value;
-    const category = document.getElementById("problemCategory").value;
-    const description = document.getElementById("problemDescription").value;
-
-    // Simulate saving the problem (In a real case, you'd send this data to a server)
-    console.log("Problem Added:", { title, category, description });
-
-    // Update dashboard (mock data for this example)
-    const totalProblems = document.getElementById("totalProblems");
-    const resolvedProblems = document.getElementById("resolvedProblems");
-    const pendingSolutions = document.getElementById("pendingSolutions");
-
-    totalProblems.innerText = parseInt(totalProblems.innerText) + 1;
-    pendingSolutions.innerText = parseInt(pendingSolutions.innerText) + 1;
-
-    // Clear form after submission
-    document.getElementById("addProblemForm").reset();
-});
-
-</script>
 </html>

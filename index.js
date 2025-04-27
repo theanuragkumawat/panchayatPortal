@@ -51,6 +51,22 @@ app.get("/login", (req, res) => {
 app.get("/problemUpload", (req, res) => {
   res.render("form", { title: "Problem Upload" });
 });
+
+app.get("/status", authenticateToken, async (req, res) => {
+  try {
+    // Fetch problems associated with the logged-in user
+    const userProblems = await problem.find({ userId: req.user.id });
+
+    console.log("User problems:", userProblems);
+
+    // Render the problems in the "status" view
+    res.render("problems", { title: "Your Problems", problems: userProblems });
+  } catch (err) {
+    console.error("Error fetching problems:", err);
+    res.status(500).send("Error fetching problems");
+  }
+});
+
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
@@ -124,6 +140,10 @@ function authenticateToken(req, res, next) {
 // Protected route example
 app.get("/dashboard", authenticateToken, (req, res) => {
   res.send(`Welcome to your dashboard, user ID: ${req.user.id}`);
+});
+app.get("/admin", async (req, res) => {
+  const UserProblem = await problem.find();
+  res.render("admin", { title: "Your Problems", problems: UserProblem });
 });
 
 const api = "https://api.postalpincode.in/pincode/303702";
