@@ -141,6 +141,18 @@ function authenticateToken(req, res, next) {
 app.get("/dashboard", authenticateToken, (req, res) => {
   res.send(`Welcome to your dashboard, user ID: ${req.user.id}`);
 });
+app.get("/admin", async (req, res) => {
+  const UserProblem = await problem.find();
+  res.render("admin", { title: "Your Problems", problems: UserProblem });
+});
+
+app.get("/admin/:problemId", async (req, res) => {
+  const problem = await problem.findById(req.params.problemId);
+  if (!problem) {
+    return res.status(404).send("Problem not found");
+  }
+  res.render("problemDetails", { title: "Problem Details", problem });
+});   
 
 const api = "https://api.postalpincode.in/pincode/303702";
 

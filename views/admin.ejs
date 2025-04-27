@@ -3,72 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Panel - Village Problems (No JS)</title>
-  <link rel="stylesheet" href="admin.css">
+  <title>Admin Panel - Beautiful Cards</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: #007BFF;
+      padding: 20px 40px;
+      color: white;
+      font-size: 1.8em;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .container {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 30px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 25px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+      color: #222;
+    }
+
+    .card-description {
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      color: #555;
+      flex: 1;
+    }
+
+    .status-dropdown {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    .status-dropdown:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+  </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <div class="controls">
-      <button>All</button>
-      <button>Pending</button>
-      <button>Completed</button>
-      <button>Sort by Title</button>
-    </div>
-    <h1>Admin Panel</h1>
-  </div>
+<div class="navbar text-center">
+  Admin Panel
+</div>
 
-  <main id="problems-container">
-
-    <!-- Problem Card 1 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1581093588401-1f1c7c6c85a2" alt="Water Problem">
-      <div class="content">
-        <h3>Water Supply Problem</h3>
-        <p>The village is facing severe drinking water shortage.</p>
-        <div class="status-dropdown">
-          <label for="status1">Status:</label>
-          <select id="status1" name="status">
-            <option selected>Pending</option>
-            <option>Completed</option>
-          </select>
+<div class="container">
+  <% if (locals.problems) { %>
+    <% problems.forEach(element => { %>
+      <a href="/<%= element._id %>">
+        <div class="card">
+          <img src="<%= element.ProblemImages[0] %>" alt="Project Image">
+          <div class="card-content">
+            <div class="card-title"><%= element.title %></div>
+            <div class="card-description">element.description</div>
+            <select class="status-dropdown">
+              <option>Pending</option>
+              <option>In Progress</option>
+              <option>Completed</option>
+            </select>
+          </div>
         </div>
-      </div>
-    </div>
+      </a>
+    <% }) %>
 
-    <!-- Problem Card 2 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" alt="Broken Roads">
-      <div class="content">
-        <h3>Broken Roads</h3>
-        <p>Main connecting road is broken due to heavy rains.</p>
-        <div class="status-dropdown">
-          <label for="status2">Status:</label>
-          <select id="status2" name="status">
-            <option>Pending</option>
-            <option selected>Completed</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    
+  <% } %>
 
-    <!-- Problem Card 3 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1581320546864-9ed240186f2c" alt="No Electricity">
-      <div class="content">
-        <h3>No Electricity</h3>
-        <p>Frequent power cuts affecting the villagers' life.</p>
-        <div class="status-dropdown"> 
-          <label for="status3">Status:</label>
-          <select id="status3" name="status">
-            <option selected>Pending</option>
-            <option>Completed</option>
-          </select>
-        </div>
-      </div>
+    
+  
+  <!-- <div class="card">
+    <img src="https://images.unsplash.com/photo-1559027615-5b6b18b6a5d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="Website Image">
+    <div class="card-content">
+      <div class="card-title">Website Redesign</div>
+      <div class="card-description">Redesigning the main website to a modern, sleek, and responsive version for all devices.</div>
+      <select class="status-dropdown">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
     </div>
+  </div> -->
 
-  </main>
+  <!-- <div class="card">
+    <img src="https://images.unsplash.com/photo-1523475496153-3a12fcf23b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60" alt="New Feature">
+    <div class="card-content">
+      <div class="card-title">New Feature Launch</div>
+      <div class="card-description">Launching the new real-time collaboration feature for premium users globally.</div>
+      <select class="status-dropdown">
+        <option>Pending</option>
+        <option>In Progress</option>
+        <option>Completed</option>
+      </select>
+    </div>
+  </div> -->
+</div>
 
 </body>
 </html>
