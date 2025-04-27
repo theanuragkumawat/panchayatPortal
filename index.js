@@ -7,12 +7,24 @@ const User = require('./models/user'); // Assuming a User model exists
 const { mongoConnect } = require('./connection');
 const problemSchema = require('./models/problem'); // Assuming a Problem model exists
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+const Product_Image_Path = './public/ProblemImages';
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    return cb(null, Product_Image_Path);
+  },
+  filename: function (req, file, cb) {
+    return cb(null, file.originalname);
+  }
+});
+const img = multer({ storage });
 
 const app = express();
 const JWT_SECRET = "your_jwt_secret_key"; // Replace with a secure key
 
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
@@ -26,7 +38,7 @@ mongoConnect("mongodb+srv://rajeevprajapat06:Rajeev%4063789@fashion-view.jr5jy.m
 });
 
 // Home route
-app.get("/", authenticateToken,(req, res) => {
+app.get("/", authenticateToken, (req, res) => {
   res.render("index", { title: "Async/Await Example" });
 });
 app.get("/problems", (req, res) => {
@@ -35,12 +47,17 @@ app.get("/problems", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("sign", { title: "Login" });
 })
+
+app.get("/problemUpload", (req, res) => {
+  res.render("form", { title: "Problem Upload" });
+});
 // Signup route
 app.post("/signup", async (req, res) => {
   const { fname, email, password } = req.body;
-  
-  try {   
+  console.log("hello")
+  try {
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = await User.create({
       fname,
       email,
@@ -100,7 +117,7 @@ function authenticateToken(req, res, next) {
     req.user = verified;
     next();
   } catch (err) {
-    res.status(403).send("Invalid Token");
+    return res.redirect("/login"); // Redirect to login if token is invalid
   }
 }
 
@@ -110,51 +127,89 @@ app.get("/dashboard", authenticateToken, (req, res) => {
 });
 
 // Route to submit a problem
-app.post("/submit-problem", authenticateToken, async (req, res) => {
-  const { title, description } = req.body;
-  try {
-    const newProblem = new Problem({
-      title,
-      description,
-      userId: req.user.id, // Associate the problem with the logged-in user
-    });
-    await newProblem.save();
-    console.log("Problem submitted:", newProblem);
-    res.status(201).send("Problem submitted successfully");
-  } catch (err) {
-    console.error("Error submitting problem:", err);
-    res.status(500).send("Error submitting problem");
-  }
-});
+// app.post("/submit-problem", authenticateToken, async (req, res) => {
+//   const { title, description } = req.body;
+//   try {
+//     const newProblem = new Problem({
+//       title,
+//       description,
+//       userId: req.user.id, // Associate the problem with the logged-in user
+//     });
+//     await newProblem.save();
+//     console.log("Problem submitted:", newProblem);
+//     res.status(201).send("Problem submitted successfully");
+//   } catch (err) {
+//     console.error("Error submitting problem:", err);
+//     res.status(500).send("Error submitting problem");
+//   }
+// });
 const api = "https://api.postalpincode.in/pincode/303702";
 
-async function fetchPincodeData(api) {
-  try {
-    const response = await fetch(api);
-    const data = await response.json();
-    
-    // Data is an array, first element contains the PostOffice array
-    const postOffices = data[0].PostOffice;
+// async function fetchPincodeData(api) {
+//   try {
+//     const response = await fetch(api);
+//     const data = await response.json();
 
-    // Now loop through and print each post office properly
-    postOffices.forEach((office, index) => {
-      console.log(`${index + 1}. ${office.Name} - ${office.District}, ${office.State}`);
-    });
-
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-
-fetchPincodeData(api);
-// const pinCode = async (api) => {
-//   const address = await fetch(api);
-//   const data = address.json();
-//   console.log(data);
-
+//     // Data is an array, first element contains the PostOffice array
+//     console.log(data[0].PostOffice);
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
 // }
 
-// pinCode(api);
+// fetchPincodeData(api);
+
+app.post("/submit-problem", authenticateToken, img.array('imgPath', 4), async (req, res) => {
+
+  let paths = [];
+  req.files.forEach(file => {
+    paths.push(`${file.destination.split("/").pop()}/${file.originalname}`);
+  })
+
+  const { title,
+    description,
+    urgency,
+    pincode,
+    state,
+    district,
+    city,
+    area,
+    addressLine,
+  } = req.body;
+
+  // Validate input
+  if (!title || !description) {
+    return res.status(400).send("Title and description are required");
+  }
+
+  try {
+    // Create a new problem document
+    const newProblem = await problemSchema.create({
+      userId: req.user.id, // Add the user's ObjectId from the JWT
+      title,
+      description,
+      urgency,
+      pincode,
+      state,
+      district,
+      city,
+      area,
+      addressLine,
+      ProblemImages: paths, // Store the image paths in the database
+       // Associate the problem with the logged-in user
+    });
+
+    // Save the problem to the database
+    await newProblem.save();
+    console.log("Problem uploaded:", newProblem);
+
+    // Respond with success
+    return res.redirect("/"); // Redirect to problems page after successful upload
+  } catch (err) {
+    console.error("Error uploading problem:", err);
+    res.status(500).send("Error uploading problem");
+  }
+});
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
