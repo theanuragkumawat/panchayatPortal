@@ -1,81 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Problem Upload Form</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="container py-5">
-  <div class="card shadow p-4">
+  <div class="container py-5">
+    <div class="card shadow p-4">
 
-    <h2 class="text-center mb-4">Upload Problem</h2>
+      <h2 class="text-center mb-4">Upload Problem</h2>
 
-    <form action="/submit-problem" method="POST" enctype="multipart/form-data">
- 
-      <!-- Title -->
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" placeholder="Enter problem title" required>
-      </div>
+      <form action="/submit-problem" method="POST" enctype="multipart/form-data">
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required></textarea>
+        </div>
+        <div>
+          <label for="urgency">Urgency:</label>
+          <select id="urgency" name="urgency">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+        <div>
+          <label for="pincode">Pincode:</label>
+          <input type="text" id="pincode" name="pincode" required />
+        </div>
+        <div>
+          <label for="state">State:</label>
+          <input type="text" id="state" name="state" required />
+        </div>
+        <div>
+          <label for="district">District:</label>
+          <input type="text" id="district" name="district" required />
+        </div>
+        <div>
+          <label for="city">City:</label>
+          <input type="text" id="city" name="city" required />
+        </div>
+        <div>
+          <label for="area">Area:</label>
+          <input type="text" id="area" name="area" />
+        </div>
+        <div>
+          <label for="imgPath">Upload Images:</label>
+          <input type="file" id="imgPath" name="imgPath" multiple />
+        </div>
+        <button type="submit">Submit Problem</button>
+      </form>
 
-      <!-- Urgency -->
-      <div class="mb-3">
-        <label for="urgency" class="form-label">Urgency</label>
-        <select class="form-select" id="urgency" required>
-          <option selected disabled value="">Choose urgency</option>
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-      </div>
-
-      <!-- Location -->
-      <div class="mb-3">
-        <label for="pincode" class="form-label">Pincode</label>
-        <input type="text" class="form-control" id="pincode" placeholder="Enter pincode" required>
-      </div>
-      <div class="mb-3">
-        <label for="state" class="form-label">State</label>
-        <input type="text" class="form-control" id="state" placeholder="Enter state" required>
-      </div><div class="mb-3">
-        <label for="district" class="form-label">District</label>
-        <input type="text" class="form-control" id="district" placeholder="Enter district" required>
-      </div><div class="mb-3">
-        <label for="city" class="form-label">City</label>
-        <input type="text" class="form-control" id="city" placeholder="Enter city" required>
-      </div>
-      </div><div class="mb-3">
-        <label for="area" class="form-label">Area</label>
-        <input type="text" class="form-control" id="area" placeholder="Enter area" required>
-      </div>
-
-      <!-- Upload Photo -->
-      <div class="mb-3">
-        <label for="photo" class="form-label">Upload Photo</label>
-        <input class="form-control" type="file" id="photo" accept="image/*" multiple>
-      </div>
-
-      <!-- Description -->
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" rows="4" placeholder="Enter detailed description..." required></textarea>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="d-grid">
-        <button type="submit" class="btn btn-primary">Submit Problem</button>
-      </div>
-
-    </form>
-
+    </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
 
 
