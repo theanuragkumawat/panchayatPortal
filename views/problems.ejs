@@ -15,35 +15,18 @@
   <main class="problems-container">
 
     <!-- Problem Card 1 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1581093588401-1f1c7c6c85a2" alt="Water Problem">
-      <div class="content">
-        <h3>Water Supply Problem</h3>
-        <p>The village is facing severe drinking water shortage.</p>
-        <span class="status pending">Pending</span>
-      </div>
-    </div>
-
-    <!-- Problem Card 2 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be" alt="Broken Roads">
-      <div class="content">
-        <h3>Broken Roads</h3>
-        <p>Main connecting road is broken due to heavy rains.</p>
-        <span class="status completed">Completed</span>
-      </div>
-    </div>
-
-    <!-- Problem Card 3 -->
-    <div class="problem-card">
-      <img src="https://images.unsplash.com/photo-1581320546864-9ed240186f2c" alt="No Electricity">
-      <div class="content">
-        <h3>No Electricity</h3>
-        <p>Frequent power cuts affecting the villagers' life.</p>
-        <span class="status pending">Pending</span>
-      </div>
-    </div>
-
+     <% if (locals.problems) { %>
+      <% problems.forEach(element => { %>
+        <div class="problem-card">
+          <img src="<%= element.ProblemImages[0] %>" alt="Water Problem">
+          <div class="content">
+            <h3><%= element.title %></h3>
+            <p><%= element.description %></p>
+            <span class="status pending"><%= element.status %></span>
+          </div>
+        </div>
+      <% }) %>
+     <% } %>
   </main>
 
 </body>
